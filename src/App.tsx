@@ -31,7 +31,7 @@ function App() {
   
   return (
     <>
-      <div style={{ width: "648px"}}>
+      <div className="max-w-[648px] md:w-full lg:w-full mx-auto my-0">
         <ChatTextInput 
           onAssign={handleUserAssignment}
           writer={assigned}
@@ -42,7 +42,7 @@ function App() {
 
       </div>
       <div className="pt-10">
-        <p>{text}</p>
+        <p><strong>value: </strong>{text}</p>
       </div>
     </>
   )

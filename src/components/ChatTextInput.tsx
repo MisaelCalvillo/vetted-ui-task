@@ -38,11 +38,16 @@ function ChatTextInput(props: Props) {
     }
   }
 
-  const showWriterInfo = !isWriting || !text;
+  console.log({ text })
+
+  let showWriterInfo = !isWriting || !text;
+  if (!isWriting && text) {
+    showWriterInfo = false
+  } 
   const showBorder = isWriting;
 
   return (
-    <div className={`flex ${!showWriterInfo ? 'justify-end' : 'justify-between'} ${writer && `hover:border-[#6B42EE]`} ${showBorder ? 'border-[#6B42EE]' : 'border-white'} border-2 content-center bg-white relative px-4 rounded-xl w-full h-14 flex-wrap shadow-sm`}>
+    <div className={`flex ${!showWriterInfo ? 'justify-end' : 'justify-between'} ${writer && `hover:border-[#6B42EE]`} ${showBorder ? 'border-[#6B42EE]' : 'border-white'} border-2 content-center bg-white relative px-4 rounded-xl w-full h-14 flex-wrap shadow-sm min-w-[320px]`}>
       {writer && (
         <input 
           className={`absolute bg-transparent inset-0 px-4 py-3 outline-none z-50 font-medium text-base leading-none pr-[10%]`} 
@@ -74,10 +79,10 @@ function ChatTextInput(props: Props) {
                   }}
                 ></div>
               ) : (
-                <img className="mr-2 h-3.5" src={assingIcon} />
+                <img className="mr-2" src={assingIcon} />
               )
             }
-            <p className="font-medium text-base leading-none">{writer?.name || 'Assign myself and reply'}</p>
+            <p className="font-medium text-base leading-normal">{writer?.name || 'Assign myself and reply'}</p>
             {props.loading && (
               <div className="absolute flex flex-wrap content-center justify-center inset-0 z-10 bg-[#f6f6f1] opacity-75">
                 <svg aria-hidden="true" className="inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-black" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
