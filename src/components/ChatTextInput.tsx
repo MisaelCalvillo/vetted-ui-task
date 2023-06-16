@@ -13,6 +13,8 @@ type ChatTextInput = {
   onSubmit: (text: string) => void
   loading: boolean;
   value?: string;
+  name?: string;
+  id?: string;
 }
 
 // TODO: Extend color palete
@@ -23,6 +25,8 @@ function ChatTextInput({
   onSubmit, 
   loading, 
   value, 
+  id, 
+  name,
 }: ChatTextInput) {
   const [isWriting, setIsWriting] = useState(false);
   const [text, setText] = useState<string | undefined>(value);
@@ -66,6 +70,8 @@ function ChatTextInput({
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
+          name={name}
+          id={id}
         />
       )}
       {showWriterInfo && (
@@ -92,6 +98,7 @@ function ChatTextInput({
         <button
           className="z-[60] rounded-full flex flex-wrap justify-center content-center w-8 h-8 bg-[#f6f6f4] cursor-pointer hover:shadow-sm active:shadow select-none"
           onClick={onSubmitHandler}
+          value="submit"
         >
           <img src={rightArrowIcon} className="w-[20px]" />
         </button>

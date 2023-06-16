@@ -38,6 +38,8 @@ function App() {
           loading={loading}
           onSubmit={handleTextSubmit}
           value={text}
+          name="chat-answer"
+          id="chat-answer"
         />
 
       </div>

@@ -1,5 +1,5 @@
+// @ts-nocheck
 import { render, screen, fireEvent } from '@testing-library/react';
-
 import ChatTextInput from './ChatTextInput';
 
 describe('ChatTextInput', () => {
@@ -7,8 +7,9 @@ describe('ChatTextInput', () => {
     writer: null,
     loading: false,
     onAssign: () => console.log('onAssign'),
-    onSubmit: () => console.log('onSubmit')
-
+    onSubmit: () => console.log('onSubmit'),
+    name: 'chat-answer',
+    id: 'chat-answer',
   };
 
   const writer = {
@@ -34,25 +35,26 @@ describe('ChatTextInput', () => {
   });
 
   it('calls onSubmit when user hits enter', () => {
-    const mockOnSubmit = jest.fn();
-    render(<ChatTextInput {...defaultProps} onSubmit={mockOnSubmit} writer={writer}/>);
+    const mockOnSubmit = vi.fn();
+    render(<ChatTextInput {...defaultProps} onSubmit={mockOnSubmit} writer={writer} s/>);
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'User input' } });
     fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
     expect(mockOnSubmit).toHaveBeenCalledWith('User input');
   });
 
-  // it('calls onSubmit when user clicks submit button', () => {
-  //   const mockOnSubmit = jest.fn();
-  //   const { getByRole } = render(<ChatTextInput {...defaultProps} onSubmit={mockOnSubmit} />);
-  //   fireEvent.change(getByRole('textbox'), { target: { value: 'User input' } });
-  //   fireEvent.click(getByRole('button', { name: /submit/i }));
-  //   expect(mockOnSubmit).toHaveBeenCalledWith('User input');
-  // });
+  it('calls onSubmit when user clicks submit button', () => {
+    const mockOnSubmit = vi.fn();
+    render(<ChatTextInput {...defaultProps} onSubmit={mockOnSubmit} writer={writer} />);
+    screen.debug()
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'User input' } });
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+    expect(mockOnSubmit).toHaveBeenCalledWith('User input');
+  });
 
   // it('calls onAssign when user clicks assign button', async () => {
-  //   const mockOnAssign = jest.fn();
-  //   const { getByText } = render(<ChatTextInput {...defaultProps} onAssign={mockOnAssign} />);
-  //   fireEvent.click(getByText('Assign myself and reply'));
+  //   const mockOnAssign = vi.fn();
+  //   render(<ChatTextInput {...defaultProps} onAssign={mockOnAssign} />);
+  //   fireEvent.click(screen.getByText('Assign myself and reply'));
   //   await waitFor(() => expect(mockOnAssign).toHaveBeenCalled());
   // });
 });
