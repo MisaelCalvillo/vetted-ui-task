@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import * as jest from 'jest';
 
 import ChatTextInput from './ChatTextInput';
 
@@ -35,7 +34,7 @@ describe('ChatTextInput', () => {
   });
 
   it('calls onSubmit when user hits enter', () => {
-    const mockOnSubmit = vi.fn();
+    const mockOnSubmit = jest.fn();
     render(<ChatTextInput {...defaultProps} onSubmit={mockOnSubmit} writer={writer}/>);
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'User input' } });
     fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
