@@ -79,11 +79,7 @@ function ChatTextInput({
             className={`flex flex-wrap relative justify-between content-center h-8 rounded-3xl ${writer ? 'pl-[5px] pr-[11px]' : 'px-3'} bg-[#f6f6f4] ${!loading ? 'hover:opacity-75': ''} border-transparent cursor-pointer overflow-hidden  ${writer && 'opacity-40'}`}
             onClick={handleAssingClick}
           >
-            {
-              writer ? <Avatar src={writer?.photo} /> : (
-                <img className="mr-2" src={assingIcon} />
-              )
-            }
+            {writer ? <Avatar src={writer?.photo} /> : <img className="mr-2" src={assingIcon} />}
             <p className="font-medium text-base leading-normal">{writer?.name || 'Assign myself and reply'}</p>
             {loading && (
               <div className="absolute flex flex-wrap content-center justify-center inset-0 z-10 bg-[#f6f6f1] opacity-75">
