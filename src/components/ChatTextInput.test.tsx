@@ -5,8 +5,6 @@ import ChatTextInput from './ChatTextInput';
 describe('ChatTextInput', () => {
   const defaultProps = {
     writer: null,
-    onAssign: jest.fn(),
-    onSubmit: jest.fn(),
     loading: false,
   };
 
