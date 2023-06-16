@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import * as jest from 'jest';
 
 import ChatTextInput from './ChatTextInput';
 
@@ -27,19 +28,19 @@ describe('ChatTextInput', () => {
     expect(screen.getByRole('textbox')).toHaveValue('Initial value');
   });
 
-  // it('updates the input field as user types', () => {
-  //   const { getByRole } = render(<ChatTextInput {...defaultProps} />);
-  //   fireEvent.change(getByRole('textbox'), { target: { value: 'User input' } });
-  //   expect(getByRole('textbox')).toHaveValue('User input');
-  // });
+  it('updates the input field as user types', () => {
+    const { getByRole } = render(<ChatTextInput {...defaultProps} writer={writer} />);
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'User input' } });
+    expect(getByRole('textbox')).toHaveValue('User input');
+  });
 
-  // it('calls onSubmit when user hits enter', () => {
-  //   const mockOnSubmit = jest.fn();
-  //   const { getByRole } = render(<ChatTextInput {...defaultProps} onSubmit={mockOnSubmit} />);
-  //   fireEvent.change(getByRole('textbox'), { target: { value: 'User input' } });
-  //   fireEvent.keyDown(getByRole('textbox'), { key: 'Enter' });
-  //   expect(mockOnSubmit).toHaveBeenCalledWith('User input');
-  // });
+  it('calls onSubmit when user hits enter', () => {
+    const mockOnSubmit = vi.fn();
+    render(<ChatTextInput {...defaultProps} onSubmit={mockOnSubmit} writer={writer}/>);
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'User input' } });
+    fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
+    expect(mockOnSubmit).toHaveBeenCalledWith('User input');
+  });
 
   // it('calls onSubmit when user clicks submit button', () => {
   //   const mockOnSubmit = jest.fn();
